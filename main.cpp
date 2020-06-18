@@ -63,5 +63,12 @@ int main()
 
 	cout << endl;
 
+	cout << my::is_null_pointer_v<nullptr_t> << endl;
+	cout << my::is_null_pointer_v<const nullptr_t> << endl;
+	cout << my::is_null_pointer_v<volatile nullptr_t> << endl;
+	cout << my::is_null_pointer_v<const volatile nullptr_t> << endl;
+
+	cout << endl;
+
 	return 0;
 }
