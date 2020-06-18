@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <cstdint>
 #include <typeinfo>
 #include <type_traits>
 #include "my_type_traits"
@@ -70,5 +71,52 @@ int main()
 
 	cout << endl;
 
+	cout << my::is_integral_v<bool> << endl;
+	cout << my::is_integral_v<char> << endl;
+	cout << my::is_integral_v<unsigned char> << endl;
+	cout << my::is_integral_v<char16_t> << endl;
+	cout << my::is_integral_v<char32_t> << endl;
+	cout << my::is_integral_v<short> << endl;
+	cout << my::is_integral_v<unsigned short> << endl;
+	cout << my::is_integral_v<int> << endl;
+	cout << my::is_integral_v<unsigned int> << endl;
+	cout << my::is_integral_v<long> << endl;
+	cout << my::is_integral_v<unsigned long> << endl;
+	cout << my::is_integral_v<long long> << endl;
+	cout << my::is_integral_v<unsigned long long> << endl;
+	cout << my::is_integral_v<int8_t> << endl;
+	cout << my::is_integral_v<uint8_t> << endl;
+	cout << my::is_integral_v<int16_t> << endl;
+	cout << my::is_integral_v<uint16_t> << endl;
+	cout << my::is_integral_v<int32_t> << endl;
+	cout << my::is_integral_v<uint32_t> << endl;
+	cout << my::is_integral_v<int64_t> << endl;
+	cout << my::is_integral_v<uint64_t> << endl;
+
+	cout << endl;
+
+	cout << my::is_integral_v<float> << endl;
+	cout << my::is_integral_v<double> << endl;
+	cout << my::is_integral_v<bool *> << endl;
+	cout << my::is_integral_v<char *> << endl;
+	cout << my::is_integral_v<unsigned char *> << endl;
+	cout << my::is_integral_v<char16_t *> << endl;
+	cout << my::is_integral_v<char32_t *> << endl;
+	cout << my::is_integral_v<short *> << endl;
+	cout << my::is_integral_v<unsigned short *> << endl;
+	cout << my::is_integral_v<int *> << endl;
+	cout << my::is_integral_v<unsigned int *> << endl;
+	cout << my::is_integral_v<long *> << endl;
+	cout << my::is_integral_v<unsigned long *> << endl;
+	cout << my::is_integral_v<long long *> << endl;
+	cout << my::is_integral_v<unsigned long long *> << endl;
+	cout << my::is_integral_v<int8_t *> << endl;
+	cout << my::is_integral_v<uint8_t *> << endl;
+	cout << my::is_integral_v<int16_t *> << endl;
+	cout << my::is_integral_v<uint16_t *> << endl;
+	cout << my::is_integral_v<int32_t *> << endl;
+	cout << my::is_integral_v<uint32_t *> << endl;
+	cout << my::is_integral_v<int64_t *> << endl;
+	cout << my::is_integral_v<uint64_t *> << endl;
 	return 0;
 }
