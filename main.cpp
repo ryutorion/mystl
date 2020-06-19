@@ -6,6 +6,20 @@
 
 using namespace std;
 
+struct Struct
+{
+	char c;
+};
+
+union Union
+{
+	char u;
+	short s;
+	int i;
+	float f;
+	double d;
+};
+
 int main()
 {
 	cout << my::is_same_v<my::remove_const_t<int>, int> << endl;
@@ -251,6 +265,12 @@ int main()
 	cout << my::is_arithmetic_v<float *> << endl;
 	cout << my::is_arithmetic_v<double *> << endl;
 
+	cout << endl;
+
+	cout << my::is_union_v<char> << endl;
+	cout << my::is_union_v<int> << endl;
+	cout << my::is_union_v<Struct> << endl;
+	cout << my::is_union_v<Union> << endl;
 
 	return 0;
 }
