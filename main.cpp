@@ -6,6 +6,13 @@
 
 using namespace std;
 
+template <typename T, size_t N>
+void f()
+{
+	cout << my::is_array_v<T[N]> << endl;
+	cout << typeid(T[N]).name() << endl;
+}
+
 int main()
 {
 	cout << my::is_same_v<my::remove_const_t<int>, int> << endl;
@@ -92,6 +99,7 @@ int main()
 	cout << my::is_integral_v<uint32_t> << endl;
 	cout << my::is_integral_v<int64_t> << endl;
 	cout << my::is_integral_v<uint64_t> << endl;
+	cout << my::is_integral_v<size_t> << endl;
 
 	cout << endl;
 
@@ -146,6 +154,41 @@ int main()
 	cout << my::is_floating_point_v<float> << endl;
 	cout << my::is_floating_point_v<double> << endl;
 	cout << my::is_floating_point_v<long double> << endl;
+
+	cout << endl;
+
+	typedef int b[5];
+	using a = int[5];
+
+	int array1[]{ 1, 2, 3 };
+	int array2[2];
+	int array3[5];
+	const int array4[]{ 1, 2, 3 };
+	const int array5[2]{ 1, 2, };
+	const int array6[5]{ 1, 2, 3, 4, 5, };
+
+	cout << my::is_array_v<decltype(array1)> << endl;
+	cout << my::is_array_v<decltype(array2)> << endl;
+	cout << my::is_array_v<decltype(array3)> << endl;
+	cout << my::is_array_v<decltype(array4)> << endl;
+	cout << my::is_array_v<decltype(array5)> << endl;
+	cout << my::is_array_v<decltype(array6)> << endl;
+	cout << my::is_array_v<int *> << endl;
+	cout << my::is_array_v<int []> << endl;
+	cout << my::is_array_v<int [5]> << endl;
+	cout << my::is_array_v<const int *> << endl;
+	cout << my::is_array_v<const int []> << endl;
+	cout << my::is_array_v<const int [5]> << endl;
+	cout << my::is_array_v<a> << endl;
+	cout << my::is_array_v<b> << endl;
+
+	f<int, 5>();
+	cout << typeid(array1).name() << endl;
+	cout << typeid(array2).name() << endl;
+	cout << typeid(array3).name() << endl;
+	cout << typeid(array4).name() << endl;
+	cout << typeid(array5).name() << endl;
+	cout << typeid(array6).name() << endl;
 
 	return 0;
 }
