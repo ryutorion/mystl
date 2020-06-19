@@ -205,5 +205,20 @@ int main()
 	cout << my::is_lvalue_reference_v<const volatile int &> << endl;
 	cout << my::is_lvalue_reference_v<const volatile int &&> << endl;
 
+	cout << endl;
+
+	cout << my::is_rvalue_reference_v<int> << endl;
+	cout << my::is_rvalue_reference_v<int &> << endl;
+	cout << my::is_rvalue_reference_v<int &&> << endl;
+	cout << my::is_rvalue_reference_v<const int> << endl;
+	cout << my::is_rvalue_reference_v<const int &> << endl;
+	cout << my::is_rvalue_reference_v<const int &&> << endl;
+	cout << my::is_rvalue_reference_v<volatile int> << endl;
+	cout << my::is_rvalue_reference_v<volatile int &> << endl;
+	cout << my::is_rvalue_reference_v<volatile int &&> << endl;
+	cout << my::is_rvalue_reference_v<const volatile int> << endl;
+	cout << my::is_rvalue_reference_v<const volatile int &> << endl;
+	cout << my::is_rvalue_reference_v<const volatile int &&> << endl;
+
 	return 0;
 }
