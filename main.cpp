@@ -235,6 +235,22 @@ int main()
 	cout << my::is_reference_v<const volatile int &> << endl;
 	cout << my::is_reference_v<const volatile int &&> << endl;
 
+	cout << endl;
+
+	cout << my::is_arithmetic_v<char> << endl;
+	cout << my::is_arithmetic_v<int> << endl;
+	cout << my::is_arithmetic_v<float> << endl;
+	cout << my::is_arithmetic_v<double> << endl;
+	cout << my::is_arithmetic_v<const int> << endl;
+	cout << my::is_arithmetic_v<const float> << endl;
+	cout << my::is_arithmetic_v<const double> << endl;
+	cout << my::is_arithmetic_v<const volatile int> << endl;
+	cout << my::is_arithmetic_v<const volatile float> << endl;
+	cout << my::is_arithmetic_v<const volatile double> << endl;
+	cout << my::is_arithmetic_v<int *> << endl;
+	cout << my::is_arithmetic_v<float *> << endl;
+	cout << my::is_arithmetic_v<double *> << endl;
+
 
 	return 0;
 }
