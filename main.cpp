@@ -20,6 +20,23 @@ union Union
 	double d;
 };
 
+enum Enum
+{
+	A,
+	B,
+	C,
+	D
+};
+
+enum class EnumClass
+{
+	CA,
+	CB,
+	CC,
+	CD
+};
+
+
 int main()
 {
 	cout << my::is_same_v<my::remove_const_t<int>, int> << endl;
@@ -271,6 +288,14 @@ int main()
 	cout << my::is_union_v<int> << endl;
 	cout << my::is_union_v<Struct> << endl;
 	cout << my::is_union_v<Union> << endl;
+
+	cout << endl;
+
+	cout << my::is_enum_v<char> << endl;
+	cout << my::is_enum_v<Struct> << endl;
+	cout << my::is_enum_v<Union> << endl;
+	cout << my::is_enum_v<Enum> << endl;
+	cout << my::is_enum_v<EnumClass> << endl;
 
 	return 0;
 }
