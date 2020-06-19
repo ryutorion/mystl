@@ -6,13 +6,6 @@
 
 using namespace std;
 
-template <typename T, size_t N>
-void f()
-{
-	cout << my::is_array_v<T[N]> << endl;
-	cout << typeid(T[N]).name() << endl;
-}
-
 int main()
 {
 	cout << my::is_same_v<my::remove_const_t<int>, int> << endl;
@@ -157,9 +150,6 @@ int main()
 
 	cout << endl;
 
-	typedef int b[5];
-	using a = int[5];
-
 	int array1[]{ 1, 2, 3 };
 	int array2[2];
 	int array3[5];
@@ -179,16 +169,26 @@ int main()
 	cout << my::is_array_v<const int *> << endl;
 	cout << my::is_array_v<const int []> << endl;
 	cout << my::is_array_v<const int [5]> << endl;
-	cout << my::is_array_v<a> << endl;
-	cout << my::is_array_v<b> << endl;
 
-	f<int, 5>();
-	cout << typeid(array1).name() << endl;
-	cout << typeid(array2).name() << endl;
-	cout << typeid(array3).name() << endl;
-	cout << typeid(array4).name() << endl;
-	cout << typeid(array5).name() << endl;
-	cout << typeid(array6).name() << endl;
+	cout << endl;
+
+	cout << my::is_pointer_v<int> << endl;
+	cout << my::is_pointer_v<int *> << endl;
+	cout << my::is_pointer_v<const int *> << endl;
+	cout << my::is_pointer_v<volatile int *> << endl;
+	cout << my::is_pointer_v<const volatile int *> << endl;
+	cout << my::is_pointer_v<int * const> << endl;
+	cout << my::is_pointer_v<int * volatile> << endl;
+	cout << my::is_pointer_v<int * const volatile> << endl;
+	cout << my::is_pointer_v<const int * const> << endl;
+	cout << my::is_pointer_v<const int * volatile> << endl;
+	cout << my::is_pointer_v<const int * const volatile> << endl;
+	cout << my::is_pointer_v<volatile int * const> << endl;
+	cout << my::is_pointer_v<volatile int * volatile> << endl;
+	cout << my::is_pointer_v<volatile int * const volatile> << endl;
+	cout << my::is_pointer_v<const volatile int * const> << endl;
+	cout << my::is_pointer_v<const volatile int * volatile> << endl;
+	cout << my::is_pointer_v<const volatile int * const volatile> << endl;
 
 	return 0;
 }
