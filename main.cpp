@@ -8,7 +8,11 @@ using namespace std;
 
 struct Struct
 {
-	char c;
+	int i;
+
+	int n() { return 1; }
+	int c() const { return 2; }
+	int cn() const noexcept { return 3; }
 };
 
 union Union
@@ -35,7 +39,6 @@ enum class EnumClass
 	CC,
 	CD
 };
-
 
 int main()
 {
@@ -296,6 +299,19 @@ int main()
 	cout << my::is_enum_v<Union> << endl;
 	cout << my::is_enum_v<Enum> << endl;
 	cout << my::is_enum_v<EnumClass> << endl;
+
+	cout << endl;
+
+	typedef void fc() const;
+
+	cout << my::is_const_v<int> << endl;
+	cout << my::is_const_v<int *> << endl;
+	cout << my::is_const_v<int &> << endl;
+	cout << my::is_const_v<const int> << endl;
+	cout << my::is_const_v<const int *> << endl;
+	cout << my::is_const_v<const int &> << endl;
+	cout << my::is_const_v<const int * const> << endl;
+	cout << my::is_const_v<fc> << endl;
 
 	return 0;
 }
