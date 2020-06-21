@@ -234,6 +234,31 @@ int main()
 	static_assert(my::is_same_v<my::remove_extent_t<const int [][5]>, const int[5]>);
 	static_assert(my::is_same_v<my::remove_extent_t<volatile int [][5]>, volatile int[5]>);
 	static_assert(my::is_same_v<my::remove_extent_t<const volatile int [][5]>, const volatile int[5]>);
+	static_assert(my::is_same_v<my::remove_extent_t<int [5][5]>, int[5]>);
+	static_assert(my::is_same_v<my::remove_extent_t<const int [5][5]>, const int[5]>);
+	static_assert(my::is_same_v<my::remove_extent_t<volatile int [5][5]>, volatile int[5]>);
+	static_assert(my::is_same_v<my::remove_extent_t<const volatile int [5][5]>, const volatile int[5]>);
+
+	static_assert(my::is_same_v<my::remove_all_extents_t<int>, int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<const int>, const int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<volatile int>, volatile int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<const volatile int>, const volatile int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<int []>, int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<const int []>, const int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<volatile int []>, volatile int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<const volatile int []>, const volatile int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<int [5]>, int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<const int [5]>, const int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<volatile int [5]>, volatile int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<const volatile int [5]>, const volatile int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<int [][5]>, int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<const int [][5]>, const int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<volatile int [][5]>, volatile int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<const volatile int [][5]>, const volatile int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<int [5][5]>, int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<const int [5][5]>, const int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<volatile int [5][5]>, volatile int>);
+	static_assert(my::is_same_v<my::remove_all_extents_t<const volatile int [5][5]>, const volatile int>);
 
 	static_assert(!my::is_void_v<int>);
 	static_assert(my::is_void_v<void>);

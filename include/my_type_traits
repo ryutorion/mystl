@@ -161,6 +161,27 @@ namespace my
 	using remove_extent_t = typename remove_extent<T>::type;
 
 	template <class T>
+	struct remove_all_extents
+	{
+		using type = T;
+	};
+
+	template <class T>
+	using remove_all_extents_t = typename remove_all_extents<T>::type;
+
+	template <class T>
+	struct remove_all_extents<T[]>
+	{
+		using type = remove_all_extents_t<T>;
+	};
+
+	template <class T, size_t N>
+	struct remove_all_extents<T[N]>
+	{
+		using type = remove_all_extents_t<T>;
+	};
+
+	template <class T>
 	struct is_void : bool_constant<is_same_v<remove_cv_t<T>, void>> {};
 
 	template <class T>
