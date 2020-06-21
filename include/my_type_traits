@@ -140,6 +140,27 @@ namespace my
 	using add_rvalue_reference_t = typename add_rvalue_reference<T>::type;
 
 	template <class T>
+	struct remove_extent
+	{
+		using type = T;
+	};
+
+	template <class T>
+	struct remove_extent<T []>
+	{
+		using type = T;
+	};
+
+	template <class T, size_t N>
+	struct remove_extent<T [N]>
+	{
+		using type = T;
+	};
+
+	template <class T>
+	using remove_extent_t = typename remove_extent<T>::type;
+
+	template <class T>
 	struct is_void : bool_constant<is_same_v<remove_cv_t<T>, void>> {};
 
 	template <class T>
