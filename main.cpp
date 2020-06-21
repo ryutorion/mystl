@@ -361,6 +361,14 @@ int main()
 	static_assert(!my::is_const_v<const int &>);
 	static_assert(my::is_const_v<const int * const>);
 
+	static_assert(!my::is_volatile_v<int>);
+	static_assert(!my::is_volatile_v<int *>);
+	static_assert(!my::is_volatile_v<int &>);
+	static_assert(my::is_volatile_v<volatile int>);
+	static_assert(!my::is_volatile_v<volatile int *>);
+	static_assert(!my::is_volatile_v<volatile int &>);
+	static_assert(my::is_volatile_v<volatile int * volatile>);
+
 	typedef void f();
 	typedef void fc() const;
 	typedef void fv() volatile;
