@@ -492,10 +492,31 @@ namespace my
 	inline constexpr bool is_member_object_pointer_v = is_member_object_pointer<T>::value;
 
 	template <class T>
+	struct is_member_pointer : bool_constant<
+		is_member_function_pointer_v<T> ||
+		is_member_object_pointer_v<T>
+	>
+	{};
+
+	template <class T>
+	inline constexpr bool is_member_pointer_v = is_member_pointer<T>::value;
+
+	template <class T>
 	struct is_class : bool_constant<__is_class(T)> {};
 
 	template <class T>
 	inline constexpr bool is_class_v = is_class<T>::value;
+
+	template <class T>
+	struct is_object : bool_constant<
+		!is_function_v<T> &&
+		!is_reference_v<T> &&
+		!is_void_v<T>
+	>
+	{};
+
+	template <class T>
+	inline constexpr bool is_object_v = is_object<T>::value;
 }
 
 #endif // MY_TYPE_TRAITS_INCLUDED
