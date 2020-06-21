@@ -491,5 +491,8 @@ int main()
 	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fvrrn)>);
 	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fcvrrn)>);
 
+	static_assert(my::is_member_object_pointer_v<decltype(&Struct::i)>);
+	static_assert(!my::is_member_object_pointer_v<decltype(&Struct::f)>);
+
 	return 0;
 }
