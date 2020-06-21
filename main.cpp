@@ -10,9 +10,30 @@ struct Struct
 {
 	int i;
 
-	int n() { return 1; }
-	int c() const { return 2; }
-	int cn() const noexcept { return 3; }
+	int f() { return 1; }
+	int fc() const { return 2; }
+	int fv() volatile { return 2; }
+	int fcv() const volatile { return 2; }
+	int fr() & { return 1; }
+	int fcr() const & { return 2; }
+	int fvr() volatile & { return 2; }
+	int fcvr() const volatile & { return 2; }
+	int frr() && { return 1; }
+	int fcrr() const && { return 2; }
+	int fvrr() volatile && { return 2; }
+	int fcvrr() const volatile && { return 2; }
+	int fn() noexcept { return 1; }
+	int fcn() const noexcept { return 2; }
+	int fvn() volatile noexcept { return 2; }
+	int fcvn() const volatile noexcept { return 2; }
+	int frn() & noexcept { return 1; }
+	int fcrn() const & noexcept { return 2; }
+	int fvrn() volatile & noexcept { return 2; }
+	int fcvrn() const volatile & noexcept { return 2; }
+	int frrn() && noexcept { return 1; }
+	int fcrrn() const && noexcept { return 2; }
+	int fvrrn() volatile && noexcept { return 2; }
+	int fcvrrn() const volatile && noexcept { return 2; }
 };
 
 union Union
@@ -435,6 +456,40 @@ int main()
 	static_assert(my::is_function_v<vfcrrn>);
 	static_assert(my::is_function_v<vfvrrn>);
 	static_assert(my::is_function_v<vfcvrrn>);
+
+	static_assert(!my::is_member_function_pointer_v<int>);
+	static_assert(!my::is_member_function_pointer_v<const int>);
+	static_assert(!my::is_member_function_pointer_v<volatile int>);
+	static_assert(!my::is_member_function_pointer_v<const volatile int>);
+	static_assert(!my::is_member_function_pointer_v<int *>);
+	static_assert(!my::is_member_function_pointer_v<const int *>);
+	static_assert(!my::is_member_function_pointer_v<volatile int *>);
+	static_assert(!my::is_member_function_pointer_v<const volatile int *>);
+	static_assert(!my::is_member_function_pointer_v<f>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::f)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fc)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fv)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fcv)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fr)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fcr)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fvr)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fcvr)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::frr)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fcrr)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fvrr)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fcvrr)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fn)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fcn)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fvn)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fcv)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::frn)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fcrn)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fvrn)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fcvrn)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::frrn)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fcrrn)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fvrrn)>);
+	static_assert(my::is_member_function_pointer_v<decltype(&Struct::fcvrrn)>);
 
 	return 0;
 }
