@@ -245,6 +245,7 @@ namespace my
 	template <class T>
 	inline constexpr bool is_const_v = is_const<T>::value;
 
+#ifdef _MSC_VER
 	template <class T>
 	struct is_function : false_type
 	{};
@@ -393,6 +394,81 @@ namespace my
 	template <class Ret, class... Params>
 	struct is_function<Ret(Params..., ...) const volatile && noexcept> : true_type {};
 
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...)> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) const> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) volatile> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) const volatile> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) &> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) const &> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) volatile &> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) const volatile &> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) &&> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) const &&> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) volatile &&> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) const volatile &&> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) noexcept> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) const noexcept> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) volatile noexcept> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) const volatile noexcept> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) & noexcept> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) const & noexcept> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) volatile & noexcept> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) const volatile & noexcept> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) && noexcept> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) const && noexcept> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) volatile && noexcept> : true_type {};
+
+	template <class Ret, class... Params>
+	struct is_function<Ret __vectorcall (Params...) const volatile && noexcept> : true_type {};
+#else
+	template <class T>
+	struct is_function : bool_constant<__is_function(T)> {};
+#endif
 
 	template <class T>
 	inline constexpr bool is_function_v = is_function<T>::value;

@@ -61,6 +61,8 @@ int main()
 	static_assert(my::is_same_v<my::remove_const_t<int * const>, int *>);
 	static_assert(my::is_same_v<my::remove_const_t<int * const volatile>, int * volatile>);
 	static_assert(my::is_same_v<my::remove_const_t<int * volatile const>, int * volatile>);
+	static_assert(my::is_same_v<my::remove_const_t<int [3]>, int [3]>);
+	static_assert(my::is_same_v<my::remove_const_t<const int [3]>, int [3]>);
 
 	static_assert(my::is_same_v<my::add_const_t<int>, const int>);
 	static_assert(my::is_same_v<my::add_const_t<const int>, const int>);
@@ -244,51 +246,46 @@ int main()
 	static_assert(my::is_lvalue_reference_v<const volatile int &>);
 	static_assert(!my::is_lvalue_reference_v<const volatile int &&>);
 
-	cout << my::is_rvalue_reference_v<int> << endl;
-	cout << my::is_rvalue_reference_v<int &> << endl;
-	cout << my::is_rvalue_reference_v<int &&> << endl;
-	cout << my::is_rvalue_reference_v<const int> << endl;
-	cout << my::is_rvalue_reference_v<const int &> << endl;
-	cout << my::is_rvalue_reference_v<const int &&> << endl;
-	cout << my::is_rvalue_reference_v<volatile int> << endl;
-	cout << my::is_rvalue_reference_v<volatile int &> << endl;
-	cout << my::is_rvalue_reference_v<volatile int &&> << endl;
-	cout << my::is_rvalue_reference_v<const volatile int> << endl;
-	cout << my::is_rvalue_reference_v<const volatile int &> << endl;
-	cout << my::is_rvalue_reference_v<const volatile int &&> << endl;
+	static_assert(!my::is_rvalue_reference_v<int>);
+	static_assert(!my::is_rvalue_reference_v<int &>);
+	static_assert(my::is_rvalue_reference_v<int &&>);
+	static_assert(!my::is_rvalue_reference_v<const int>);
+	static_assert(!my::is_rvalue_reference_v<const int &>);
+	static_assert(my::is_rvalue_reference_v<const int &&>);
+	static_assert(!my::is_rvalue_reference_v<volatile int>);
+	static_assert(!my::is_rvalue_reference_v<volatile int &>);
+	static_assert(my::is_rvalue_reference_v<volatile int &&>);
+	static_assert(!my::is_rvalue_reference_v<const volatile int>);
+	static_assert(!my::is_rvalue_reference_v<const volatile int &>);
+	static_assert(my::is_rvalue_reference_v<const volatile int &&>);
 
-	cout << endl;
+	static_assert(!my::is_reference_v<int>);
+	static_assert(my::is_reference_v<int &>);
+	static_assert(my::is_reference_v<int &&>);
+	static_assert(!my::is_reference_v<const int>);
+	static_assert(my::is_reference_v<const int &>);
+	static_assert(my::is_reference_v<const int &&>);
+	static_assert(!my::is_reference_v<volatile int>);
+	static_assert(my::is_reference_v<volatile int &>);
+	static_assert(my::is_reference_v<volatile int &&>);
+	static_assert(!my::is_reference_v<const volatile int>);
+	static_assert(my::is_reference_v<const volatile int &>);
+	static_assert(my::is_reference_v<const volatile int &&>);
 
-	cout << my::is_reference_v<int> << endl;
-	cout << my::is_reference_v<int &> << endl;
-	cout << my::is_reference_v<int &&> << endl;
-	cout << my::is_reference_v<const int> << endl;
-	cout << my::is_reference_v<const int &> << endl;
-	cout << my::is_reference_v<const int &&> << endl;
-	cout << my::is_reference_v<volatile int> << endl;
-	cout << my::is_reference_v<volatile int &> << endl;
-	cout << my::is_reference_v<volatile int &&> << endl;
-	cout << my::is_reference_v<const volatile int> << endl;
-	cout << my::is_reference_v<const volatile int &> << endl;
-	cout << my::is_reference_v<const volatile int &&> << endl;
-
-	cout << endl;
-
-	cout << my::is_arithmetic_v<char> << endl;
-	cout << my::is_arithmetic_v<int> << endl;
-	cout << my::is_arithmetic_v<float> << endl;
-	cout << my::is_arithmetic_v<double> << endl;
-	cout << my::is_arithmetic_v<const int> << endl;
-	cout << my::is_arithmetic_v<const float> << endl;
-	cout << my::is_arithmetic_v<const double> << endl;
-	cout << my::is_arithmetic_v<const volatile int> << endl;
-	cout << my::is_arithmetic_v<const volatile float> << endl;
-	cout << my::is_arithmetic_v<const volatile double> << endl;
-	cout << my::is_arithmetic_v<int *> << endl;
-	cout << my::is_arithmetic_v<float *> << endl;
-	cout << my::is_arithmetic_v<double *> << endl;
-
-	cout << endl;
+	static_assert(my::is_arithmetic_v<char>);
+	static_assert(my::is_arithmetic_v<int>);
+	static_assert(my::is_arithmetic_v<float>);
+	static_assert(my::is_arithmetic_v<double>);
+	static_assert(my::is_arithmetic_v<const int>);
+	static_assert(my::is_arithmetic_v<const float>);
+	static_assert(my::is_arithmetic_v<const double>);
+	static_assert(my::is_arithmetic_v<const volatile int>);
+	static_assert(my::is_arithmetic_v<const volatile float>);
+	static_assert(my::is_arithmetic_v<const volatile double>);
+	static_assert(!my::is_arithmetic_v<int *>);
+	static_assert(!my::is_arithmetic_v<float *>);
+	static_assert(!my::is_arithmetic_v<double *>);
+	static_assert(!my::is_arithmetic_v<int []>);
 
 	static_assert(!my::is_union_v<char>);
 	static_assert(!my::is_union_v<int>);
@@ -334,6 +331,58 @@ int main()
 	typedef void fvrrn() volatile && noexcept;
 	typedef void fcvrrn() const volatile && noexcept;
 
+#ifdef _MSC_VER
+	typedef void __vectorcall vf();
+	typedef void __vectorcall vfc() const;
+	typedef void __vectorcall vfv() volatile;
+	typedef void __vectorcall vfcv() const volatile;
+	typedef void __vectorcall vfr() &;
+	typedef void __vectorcall vfcr() const &;
+	typedef void __vectorcall vfvr() volatile &;
+	typedef void __vectorcall vfcvr() const volatile &;
+	typedef void __vectorcall vfrr() &&;
+	typedef void __vectorcall vfcrr() const &&;
+	typedef void __vectorcall vfvrr() volatile &&;
+	typedef void __vectorcall vfcvrr() const volatile &&;
+	typedef void __vectorcall vfn() noexcept;
+	typedef void __vectorcall vfcn() const noexcept;
+	typedef void __vectorcall vfvn() volatile noexcept;
+	typedef void __vectorcall vfcvn() const volatile noexcept;
+	typedef void __vectorcall vfrn() & noexcept;
+	typedef void __vectorcall vfcrn() const & noexcept;
+	typedef void __vectorcall vfvrn() volatile & noexcept;
+	typedef void __vectorcall vfcvrn() const volatile & noexcept;
+	typedef void __vectorcall vfrrn() && noexcept;
+	typedef void __vectorcall vfcrrn() const && noexcept;
+	typedef void __vectorcall vfvrrn() volatile && noexcept;
+	typedef void __vectorcall vfcvrrn() const volatile && noexcept;
+#else
+	typedef void vf() __attribute__((vectorcall));
+	typedef void vfc() const __attribute__((vectorcall));
+	typedef void vfv() volatile __attribute__((vectorcall));
+	typedef void vfcv() const volatile __attribute__((vectorcall));
+	typedef void vfr() & __attribute__((vectorcall));
+	typedef void vfcr() const & __attribute__((vectorcall));
+	typedef void vfvr() volatile & __attribute__((vectorcall));
+	typedef void vfcvr() const volatile & __attribute__((vectorcall));
+	typedef void vfrr() && __attribute__((vectorcall));
+	typedef void vfcrr() const && __attribute__((vectorcall));
+	typedef void vfvrr() volatile && __attribute__((vectorcall));
+	typedef void vfcvrr() const volatile && __attribute__((vectorcall));
+	typedef void vfn() noexcept __attribute__((vectorcall));
+	typedef void vfcn() const noexcept __attribute__((vectorcall));
+	typedef void vfvn() volatile noexcept __attribute__((vectorcall));
+	typedef void vfcvn() const volatile noexcept __attribute__((vectorcall));
+	typedef void vfrn() & noexcept __attribute__((vectorcall));
+	typedef void vfcrn() const & noexcept __attribute__((vectorcall));
+	typedef void vfvrn() volatile & noexcept __attribute__((vectorcall));
+	typedef void vfcvrn() const volatile & noexcept __attribute__((vectorcall));
+	typedef void vfrrn() && noexcept __attribute__((vectorcall));
+	typedef void vfcrrn() const && noexcept __attribute__((vectorcall));
+	typedef void vfvrrn() volatile && noexcept __attribute__((vectorcall));
+	typedef void vfcvrrn() const volatile && noexcept __attribute__((vectorcall));
+#endif
+
 	static_assert(!my::is_function_v<int>);
 	static_assert(!my::is_function_v<int *>);
 	static_assert(!my::is_function_v<int &>);
@@ -362,7 +411,30 @@ int main()
 	static_assert(my::is_function_v<fcrrn>);
 	static_assert(my::is_function_v<fvrrn>);
 	static_assert(my::is_function_v<fcvrrn>);
-
+	static_assert(my::is_function_v<vf>);
+	static_assert(my::is_function_v<vfc>);
+	static_assert(my::is_function_v<vfv>);
+	static_assert(my::is_function_v<vfcv>);
+	static_assert(my::is_function_v<vfr>);
+	static_assert(my::is_function_v<vfcr>);
+	static_assert(my::is_function_v<vfvr>);
+	static_assert(my::is_function_v<vfcvr>);
+	static_assert(my::is_function_v<vfrr>);
+	static_assert(my::is_function_v<vfcrr>);
+	static_assert(my::is_function_v<vfvrr>);
+	static_assert(my::is_function_v<vfcvrr>);
+	static_assert(my::is_function_v<vfn>);
+	static_assert(my::is_function_v<vfcn>);
+	static_assert(my::is_function_v<vfvn>);
+	static_assert(my::is_function_v<vfcvn>);
+	static_assert(my::is_function_v<vfrn>);
+	static_assert(my::is_function_v<vfcrn>);
+	static_assert(my::is_function_v<vfvrn>);
+	static_assert(my::is_function_v<vfcvrn>);
+	static_assert(my::is_function_v<vfrrn>);
+	static_assert(my::is_function_v<vfcrrn>);
+	static_assert(my::is_function_v<vfvrrn>);
+	static_assert(my::is_function_v<vfcvrrn>);
 
 	return 0;
 }
