@@ -36,6 +36,40 @@ struct Struct
 	int fcvrrn() const volatile && noexcept { return 2; }
 };
 
+class Class
+{
+public:
+	int i;
+
+	int f() { return 1; }
+	int fc() const { return 2; }
+	int fv() volatile { return 2; }
+	int fcv() const volatile { return 2; }
+	int fr() & { return 1; }
+	int fcr() const & { return 2; }
+	int fvr() volatile & { return 2; }
+	int fcvr() const volatile & { return 2; }
+	int frr() && { return 1; }
+	int fcrr() const && { return 2; }
+	int fvrr() volatile && { return 2; }
+	int fcvrr() const volatile && { return 2; }
+	int fn() noexcept { return 1; }
+	int fcn() const noexcept { return 2; }
+	int fvn() volatile noexcept { return 2; }
+	int fcvn() const volatile noexcept { return 2; }
+	int frn() & noexcept { return 1; }
+	int fcrn() const & noexcept { return 2; }
+	int fvrn() volatile & noexcept { return 2; }
+	int fcvrn() const volatile & noexcept { return 2; }
+	int frrn() && noexcept { return 1; }
+	int fcrrn() const && noexcept { return 2; }
+	int fvrrn() volatile && noexcept { return 2; }
+	int fcvrrn() const volatile && noexcept { return 2; }
+};
+
+
+
+
 union Union
 {
 	char u;
@@ -493,6 +527,13 @@ int main()
 
 	static_assert(my::is_member_object_pointer_v<decltype(&Struct::i)>);
 	static_assert(!my::is_member_object_pointer_v<decltype(&Struct::f)>);
+
+	static_assert(!my::is_class_v<int>);
+	static_assert(my::is_class_v<Struct>);
+	static_assert(my::is_class_v<Class>);
+	static_assert(!my::is_class_v<Union>);
+	static_assert(!my::is_class_v<Enum>);
+	static_assert(!my::is_class_v<EnumClass>);
 
 	return 0;
 }
