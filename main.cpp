@@ -179,6 +179,45 @@ int main()
 	static_assert(my::is_same_v<my::add_cv_t<int * const volatile>, int * const volatile>);
 	static_assert(my::is_same_v<my::add_cv_t<int * volatile const>, int * const volatile>);
 
+	static_assert(my::is_same_v<my::remove_reference_t<int>, int>);
+	static_assert(my::is_same_v<my::remove_reference_t<const int>, const int>);
+	static_assert(my::is_same_v<my::remove_reference_t<volatile int>, volatile int>);
+	static_assert(my::is_same_v<my::remove_reference_t<const volatile int>, const volatile int>);
+	static_assert(my::is_same_v<my::remove_reference_t<int &>, int>);
+	static_assert(my::is_same_v<my::remove_reference_t<const int &>, const int>);
+	static_assert(my::is_same_v<my::remove_reference_t<volatile int &>, volatile int>);
+	static_assert(my::is_same_v<my::remove_reference_t<const volatile int &>, const volatile int>);
+	static_assert(my::is_same_v<my::remove_reference_t<int &&>, int>);
+	static_assert(my::is_same_v<my::remove_reference_t<const int &&>, const int>);
+	static_assert(my::is_same_v<my::remove_reference_t<volatile int &&>, volatile int>);
+	static_assert(my::is_same_v<my::remove_reference_t<const volatile int &&>, const volatile int>);
+
+	static_assert(my::is_same_v<my::add_lvalue_reference_t<int>, int &>);
+	static_assert(my::is_same_v<my::add_lvalue_reference_t<const int>, const int &>);
+	static_assert(my::is_same_v<my::add_lvalue_reference_t<volatile int>, volatile int &>);
+	static_assert(my::is_same_v<my::add_lvalue_reference_t<const volatile int>, const volatile int &>);
+	static_assert(my::is_same_v<my::add_lvalue_reference_t<int &>, int &>);
+	static_assert(my::is_same_v<my::add_lvalue_reference_t<const int &>, const int &>);
+	static_assert(my::is_same_v<my::add_lvalue_reference_t<volatile int &>, volatile int &>);
+	static_assert(my::is_same_v<my::add_lvalue_reference_t<const volatile int &>, const volatile int &>);
+	static_assert(my::is_same_v<my::add_lvalue_reference_t<int &&>, int &>);
+	static_assert(my::is_same_v<my::add_lvalue_reference_t<const int &&>, const int &>);
+	static_assert(my::is_same_v<my::add_lvalue_reference_t<volatile int &&>, volatile int &>);
+	static_assert(my::is_same_v<my::add_lvalue_reference_t<const volatile int &&>, const volatile int &>);
+
+	static_assert(my::is_same_v<my::add_rvalue_reference_t<int>, int &&>);
+	static_assert(my::is_same_v<my::add_rvalue_reference_t<const int>, const int &&>);
+	static_assert(my::is_same_v<my::add_rvalue_reference_t<volatile int>, volatile int &&>);
+	static_assert(my::is_same_v<my::add_rvalue_reference_t<const volatile int>, const volatile int &&>);
+	static_assert(my::is_same_v<my::add_rvalue_reference_t<int &>, int &>);
+	static_assert(my::is_same_v<my::add_rvalue_reference_t<const int &>, const int &>);
+	static_assert(my::is_same_v<my::add_rvalue_reference_t<volatile int &>, volatile int &>);
+	static_assert(my::is_same_v<my::add_rvalue_reference_t<const volatile int &>, const volatile int &>);
+	static_assert(my::is_same_v<my::add_rvalue_reference_t<int &&>, int &&>);
+	static_assert(my::is_same_v<my::add_rvalue_reference_t<const int &&>, const int &&>);
+	static_assert(my::is_same_v<my::add_rvalue_reference_t<volatile int &&>, volatile int &&>);
+	static_assert(my::is_same_v<my::add_rvalue_reference_t<const volatile int &&>, const volatile int &&>);
+
 	static_assert(!my::is_void_v<int>);
 	static_assert(my::is_void_v<void>);
 	static_assert(my::is_void_v<const void>);
