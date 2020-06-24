@@ -97,8 +97,23 @@ enum class EnumClass
 
 int main()
 {
-	static_assert(integral_constant<int, 1>::value == 1);
-	static_assert(integral_constant<bool, false>::value == false);
+	static_assert(my::integral_constant<int, 1>::value == 1);
+	static_assert(my::integral_constant<bool, false>::value == false);
+
+	my::conjunction<my::is_integral<int>> c0;
+	my::is_integral<int> * pc0 = &c0;
+
+	my::conjunction<is_integral<int>, my::is_floating_point<int>> c1;
+	my::is_floating_point<int> * pc1 = &c1;
+
+	my::conjunction<is_integral<int>, my::is_floating_point<int>, int> c2;
+	my::is_floating_point<int> * pc2 = &c2;
+
+	static_assert(my::conjunction_v<>);
+	static_assert(my::conjunction_v<my::is_integral<int>>);
+	static_assert(my::conjunction_v<my::is_integral<int>, is_floating_point<float>>);
+	static_assert(!my::conjunction_v<my::is_integral<int>, is_floating_point<int>>);
+	static_assert(!my::conjunction_v<my::is_integral<float>, int>);
 
 	static_assert(my::is_same_v<int, int>);
 	static_assert(!my::is_same_v<int, const int>);
