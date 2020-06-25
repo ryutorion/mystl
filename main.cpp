@@ -97,23 +97,66 @@ enum class EnumClass
 
 int main()
 {
+	typedef void f();
+	typedef void fc() const;
+	typedef void fv() volatile;
+	typedef void fcv() const volatile;
+	typedef void fr() &;
+	typedef void fcr() const &;
+	typedef void fvr() volatile &;
+	typedef void fcvr() const volatile &;
+	typedef void frr() &&;
+	typedef void fcrr() const &&;
+	typedef void fvrr() volatile &&;
+	typedef void fcvrr() const volatile &&;
+	typedef void fn() noexcept;
+	typedef void fcn() const noexcept;
+	typedef void fvn() volatile noexcept;
+	typedef void fcvn() const volatile noexcept;
+	typedef void frn() & noexcept;
+	typedef void fcrn() const & noexcept;
+	typedef void fvrn() volatile & noexcept;
+	typedef void fcvrn() const volatile & noexcept;
+	typedef void frrn() && noexcept;
+	typedef void fcrrn() const && noexcept;
+	typedef void fvrrn() volatile && noexcept;
+	typedef void fcvrrn() const volatile && noexcept;
+
 	static_assert(my::integral_constant<int, 1>::value == 1);
 	static_assert(my::integral_constant<bool, false>::value == false);
 
 	my::conjunction<my::is_integral<int>> c0;
 	my::is_integral<int> * pc0 = &c0;
 
-	my::conjunction<is_integral<int>, my::is_floating_point<int>> c1;
+	my::conjunction<my::is_integral<int>, my::is_floating_point<int>> c1;
 	my::is_floating_point<int> * pc1 = &c1;
 
-	my::conjunction<is_integral<int>, my::is_floating_point<int>, int> c2;
+	my::conjunction<my::is_integral<int>, my::is_floating_point<int>, int> c2;
 	my::is_floating_point<int> * pc2 = &c2;
+
+	// my::conjunction_v<int>;
 
 	static_assert(my::conjunction_v<>);
 	static_assert(my::conjunction_v<my::is_integral<int>>);
-	static_assert(my::conjunction_v<my::is_integral<int>, is_floating_point<float>>);
-	static_assert(!my::conjunction_v<my::is_integral<int>, is_floating_point<int>>);
+	static_assert(my::conjunction_v<my::is_integral<int>, my::is_floating_point<float>>);
+	static_assert(!my::conjunction_v<my::is_integral<int>, my::is_floating_point<int>>);
 	static_assert(!my::conjunction_v<my::is_integral<float>, int>);
+
+	my::disjunction<my::is_integral<int>> d0;
+	my::is_integral<int> * pd0 = &d0;
+
+	my::disjunction<my::is_floating_point<int>, my::is_integral<int>> d1;
+	my::is_integral<int> * pd1 = &d1;
+
+	my::disjunction<my::is_floating_point<int>, my::is_integral<int>, int> d2;
+	my::is_integral<int> * pd2 = &d2;
+
+	// my::disjunction_v<int>;
+
+	static_assert(!my::disjunction_v<>);
+	static_assert(my::disjunction_v<my::is_integral<int>>);
+	static_assert(my::disjunction_v<my::is_integral<int>, my::is_floating_point<float>>);
+	static_assert(my::disjunction_v<my::is_integral<int>, my::is_floating_point<int>>);
 
 	static_assert(my::is_same_v<int, int>);
 	static_assert(!my::is_same_v<int, const int>);
@@ -142,6 +185,8 @@ int main()
 	static_assert(my::is_same_v<my::add_const_t<const int *>, const int * const>);
 	static_assert(my::is_same_v<my::add_const_t<volatile int *>, volatile int * const>);
 	static_assert(my::is_same_v<my::add_const_t<const volatile int *>, const volatile int * const>);
+	static_assert(my::is_same_v<my::add_const_t<int &>, int &>);
+	static_assert(my::is_same_v<my::add_const_t<f>, f>);
 
 	static_assert(my::is_same_v<my::remove_volatile_t<int>, int>);
 	static_assert(my::is_same_v<my::remove_volatile_t<const int>, const int>);
@@ -475,31 +520,6 @@ int main()
 	static_assert(!my::is_volatile_v<volatile int *>);
 	static_assert(!my::is_volatile_v<volatile int &>);
 	static_assert(my::is_volatile_v<volatile int * volatile>);
-
-	typedef void f();
-	typedef void fc() const;
-	typedef void fv() volatile;
-	typedef void fcv() const volatile;
-	typedef void fr() &;
-	typedef void fcr() const &;
-	typedef void fvr() volatile &;
-	typedef void fcvr() const volatile &;
-	typedef void frr() &&;
-	typedef void fcrr() const &&;
-	typedef void fvrr() volatile &&;
-	typedef void fcvrr() const volatile &&;
-	typedef void fn() noexcept;
-	typedef void fcn() const noexcept;
-	typedef void fvn() volatile noexcept;
-	typedef void fcvn() const volatile noexcept;
-	typedef void frn() & noexcept;
-	typedef void fcrn() const & noexcept;
-	typedef void fvrn() volatile & noexcept;
-	typedef void fcvrn() const volatile & noexcept;
-	typedef void frrn() && noexcept;
-	typedef void fcrrn() const && noexcept;
-	typedef void fvrrn() volatile && noexcept;
-	typedef void fcvrrn() const volatile && noexcept;
 
 #ifdef _MSC_VER
 	typedef void __vectorcall vf();
