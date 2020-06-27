@@ -670,5 +670,10 @@ int main()
 	static_assert(!my::is_class_v<Enum>);
 	static_assert(!my::is_class_v<EnumClass>);
 
+	static_assert(my::rank_v<int> == 0);
+	static_assert(my::rank_v<int *> == 0);
+	static_assert(my::rank_v<int[]> == 1);
+	static_assert(my::rank_v<int[][4]> == 2);
+
 	return 0;
 }
