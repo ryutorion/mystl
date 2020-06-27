@@ -675,5 +675,14 @@ int main()
 	static_assert(my::rank_v<int[]> == 1);
 	static_assert(my::rank_v<int[][4]> == 2);
 
+	static_assert(my::extent_v<int> == 0);
+	static_assert(my::extent_v<int[2]> == 2);
+	static_assert(my::extent_v<int[2][4]> == 2);
+	static_assert(my::extent_v<int[][4]> == 0);
+	static_assert(my::extent_v<int, 1> == 0);
+	static_assert(my::extent_v<int[2], 1> == 0);
+	static_assert(my::extent_v<int[2][4], 1> == 4);
+	static_assert(my::extent_v<int[][4], 1> == 4);
+
 	return 0;
 }

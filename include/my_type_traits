@@ -807,6 +807,25 @@ namespace my
 
 	template <class T, size_t N>
 	struct rank<T[N]> : integral_constant<size_t, rank_v<T> + 1> {};
+
+	template <class T, unsigned I = 0>
+	struct extent : integral_constant<size_t, 0>
+	{};
+
+	template <class T, unsigned I = 0>
+	inline constexpr size_t extent_v = extent<T, I>::value;
+
+	template <class T, size_t N>
+	struct extent<T[N], 0> : integral_constant<size_t, N>
+	{};
+
+	template <class T, unsigned I>
+	struct extent<T[], I> : integral_constant<size_t, extent_v<T, I - 1>>
+	{};
+
+	template <class T, unsigned I, size_t N>
+	struct extent<T[N], I> : integral_constant<size_t, extent_v<T, I - 1>>
+	{};
 }
 
 #endif // MY_TYPE_TRAITS_INCLUDED
