@@ -684,5 +684,33 @@ int main()
 	static_assert(my::extent_v<int[2][4], 1> == 4);
 	static_assert(my::extent_v<int[][4], 1> == 4);
 
+	// my::underlying_type_t<int> ut;
+
+	static_assert(my::is_signed_v<char>);
+	static_assert(!my::is_signed_v<unsigned char>);
+	static_assert(my::is_signed_v<short>);
+	static_assert(!my::is_signed_v<unsigned short>);
+	static_assert(my::is_signed_v<int>);
+	static_assert(!my::is_signed_v<unsigned int>);
+	static_assert(my::is_signed_v<long>);
+	static_assert(!my::is_signed_v<unsigned long>);
+	static_assert(my::is_signed_v<long long>);
+	static_assert(!my::is_signed_v<unsigned long long>);
+	static_assert(my::is_signed_v<float>);
+	static_assert(my::is_signed_v<double>);
+
+	static_assert(!my::is_unsigned_v<char>);
+	static_assert(my::is_unsigned_v<unsigned char>);
+	static_assert(!my::is_unsigned_v<short>);
+	static_assert(my::is_unsigned_v<unsigned short>);
+	static_assert(!my::is_unsigned_v<int>);
+	static_assert(my::is_unsigned_v<unsigned int>);
+	static_assert(!my::is_unsigned_v<long>);
+	static_assert(my::is_unsigned_v<unsigned long>);
+	static_assert(!my::is_unsigned_v<long long>);
+	static_assert(my::is_unsigned_v<unsigned long long>);
+	static_assert(!my::is_unsigned_v<float>);
+	static_assert(!my::is_unsigned_v<double>);
+
 	return 0;
 }
